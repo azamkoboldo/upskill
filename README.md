@@ -1,4 +1,3 @@
-# b4u
 
 Given your strong background in **Python, Java, Spring Boot microservices, Kafka, MQ, and SQL**, along with 12+ years of experience in IT, you are already well-positioned to make a transition into the fields of **Data Science**, **AI**, and **Machine Learning**. With your expertise, you can leverage your skills and experience to differentiate yourself from junior professionals by focusing on the following career options:
 
