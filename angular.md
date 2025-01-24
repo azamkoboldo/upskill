@@ -16,6 +16,167 @@ Angular is a **TypeScript-based front-end web application framework** maintained
 
 #### 1. **Core Angular Concepts**
    - **Angular Architecture**: Understand components, templates, directives, services, and dependency injection.
+### **Angular Architecture Overview**
+Angular is built on a modular architecture where the core building blocks work together to create dynamic and scalable web applications. Below is a breakdown of the **key concepts in Angular architecture**:
+
+---
+
+### **1. Components**
+- **Definition**: Components are the building blocks of an Angular application. They control a portion of the UI and define the behavior of that part.
+- **Structure**:
+  - **HTML Template**: Defines the view (what the user sees).
+  - **TypeScript Class**: Handles the logic and data for the view.
+  - **CSS/SCSS File**: Defines the styling for the component.
+  - **Metadata (Decorator)**: Provided by `@Component` to configure the component.
+
+#### Example:
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root', // Custom HTML tag for this component
+  templateUrl: './app.component.html', // HTML template file
+  styleUrls: ['./app.component.css'] // CSS/SCSS styling
+})
+export class AppComponent {
+  title = 'Angular Architecture';
+}
+```
+
+---
+
+### **2. Templates**
+- **Definition**: Templates define the HTML structure and UI of a component. They use Angular's **template syntax** to dynamically bind data and respond to user events.
+- **Features**:
+  - **Interpolation**: Bind variables to the view using `{{ variableName }}`.
+  - **Directives**: Modify the DOM dynamically (e.g., `*ngIf`, `*ngFor`).
+  - **Event Binding**: Capture user events with `(eventName)`.
+  - **Property Binding**: Dynamically bind properties using `[propertyName]`.
+
+#### Example:
+```html
+<h1>{{ title }}</h1> <!-- Interpolation -->
+<button (click)="changeTitle()">Click Me</button> <!-- Event Binding -->
+<p [class.highlight]="isHighlighted">Dynamic Styling</p> <!-- Property Binding -->
+```
+
+---
+
+### **3. Directives**
+- **Definition**: Directives are instructions in the DOM. They extend the functionality of HTML by adding custom behavior.
+- **Types**:
+  1. **Structural Directives**:
+     - Alter the structure of the DOM.
+     - Examples: `*ngIf`, `*ngFor`, `*ngSwitch`.
+  2. **Attribute Directives**:
+     - Change the appearance or behavior of an element.
+     - Examples: `[ngClass]`, `[ngStyle]`, custom attribute directives.
+  3. **Custom Directives**:
+     - Create your own directive for reusable logic.
+
+#### Example:
+**Structural Directive (ngIf):**
+```html
+<div *ngIf="isVisible">Visible Content</div>
+```
+
+**Custom Attribute Directive:**
+```typescript
+import { Directive, ElementRef, Renderer2 } from '@angular/core';
+
+@Directive({
+  selector: '[appHighlight]'
+})
+export class HighlightDirective {
+  constructor(el: ElementRef, renderer: Renderer2) {
+    renderer.setStyle(el.nativeElement, 'color', 'blue');
+  }
+}
+```
+
+---
+
+### **4. Services**
+- **Definition**: Services are classes used to share data, logic, and functionality across different parts of the application. They are typically used for:
+  - Business logic.
+  - API calls.
+  - State management.
+- **Dependency Injection**: Services are provided to components or other services via Angular's **dependency injection system**.
+
+#### Example:
+**Service Class**:
+```typescript
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root' // Registers the service at the root level
+})
+export class DataService {
+  getData() {
+    return ['Angular', 'React', 'Vue'];
+  }
+}
+```
+
+**Using Service in a Component**:
+```typescript
+import { Component } from '@angular/core';
+import { DataService } from './data.service';
+
+@Component({
+  selector: 'app-data',
+  template: `<ul><li *ngFor="let item of data">{{ item }}</li></ul>`
+})
+export class DataComponent {
+  data: string[] = [];
+
+  constructor(private dataService: DataService) {
+    this.data = this.dataService.getData();
+  }
+}
+```
+
+---
+
+### **5. Dependency Injection**
+- **Definition**: Dependency Injection (DI) is a design pattern where Angular provides instances of services (or dependencies) to components or other services automatically.
+- **How It Works**:
+  1. Define a service.
+  2. Register the service in the `providers` array (at root or module level).
+  3. Angular injects the service instance into the component or service where it's needed.
+
+#### Example:
+**Injecting a Service**:
+```typescript
+constructor(private serviceName: ServiceName) {}
+```
+
+---
+
+### **Key Relationships**
+- **Component ↔ Template**: A component controls its template by binding data and events.
+- **Component ↔ Service**: A component consumes data and logic from a service.
+- **Template ↔ Directives**: Templates use directives to manipulate the DOM.
+
+---
+
+### **Diagram of Angular Architecture**
+1. **Component**: Controls the UI.
+2. **Template**: Defines how the UI looks.
+3. **Directives**: Adds dynamic behavior.
+4. **Services**: Provides reusable logic/data.
+5. **Dependency Injection**: Manages and delivers service instances where needed.
+
+---
+
+### **Why is Understanding Angular Architecture Important?**
+- It helps in building scalable and maintainable applications.
+- Facilitates modular development and code reuse.
+- Makes debugging and testing easier by decoupling logic (via services) from the UI.
+
+Let me know if you'd like examples or guidance on any specific concept!
+
+
    - **Modules**: Learn about `NgModules` and standalone components.
    - **Data Binding**:
      - One-way (Interpolation, Property Binding).
