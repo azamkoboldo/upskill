@@ -14,7 +14,7 @@ Angular is a **TypeScript-based front-end web application framework** maintained
 
 ### **Major Topics to Learn for Angular Expertise**
 
-#### 1. **Core Angular Concepts**
+#### A. **Core Angular Concepts**
    - **Angular Architecture**: Understand components, templates, directives, services, and dependency injection.
 ### **Angular Architecture Overview**
 Angular is built on a modular architecture where the core building blocks work together to create dynamic and scalable web applications. Below is a breakdown of the **key concepts in Angular architecture**:
@@ -190,14 +190,14 @@ Let me know if you'd like examples or guidance on any specific concept!
 
 ---
 
-#### 2. **TypeScript Fundamentals**
+#### B. **TypeScript Fundamentals**
    - Advanced TypeScript features:
      - Types, interfaces, generics, decorators.
    - Asynchronous programming with `Promises` and `Observables`.
 
 ---
 
-#### 3. **Reactive Programming**
+#### C. **Reactive Programming**
    - **RxJS**:
      - Observables, Subjects, BehaviorSubjects.
      - Operators like `map`, `filter`, `switchMap`, `mergeMap`.
@@ -205,7 +205,7 @@ Let me know if you'd like examples or guidance on any specific concept!
 
 ---
 
-#### 4. **Routing and Navigation**
+#### D. **Routing and Navigation**
    - Setting up routing with `RouterModule`.
    - Lazy-loading modules for performance.
    - Route guards (`CanActivate`, `CanDeactivate`).
@@ -214,7 +214,7 @@ Let me know if you'd like examples or guidance on any specific concept!
 
 ---
 
-#### 5. **Forms in Angular**
+#### E. **Forms in Angular**
    - **Reactive Forms**:
      - Creating and validating forms using `FormBuilder` and `Validators`.
    - **Template-Driven Forms**:
@@ -223,7 +223,7 @@ Let me know if you'd like examples or guidance on any specific concept!
 
 ---
 
-#### 6. **State Management**
+#### F. **State Management**
    - **Component State**: Managing local states using `@Input` and `@Output`.
    - **Service-based State**: Sharing data between components.
    - **NgRx**:
@@ -232,7 +232,7 @@ Let me know if you'd like examples or guidance on any specific concept!
 
 ---
 
-#### 7. **Performance Optimization**
+#### G. **Performance Optimization**
    - OnPush change detection strategy.
    - Lazy loading and preloading modules.
    - Tree-shakable providers.
@@ -242,7 +242,7 @@ Let me know if you'd like examples or guidance on any specific concept!
 
 ---
 
-#### 8. **Testing**
+#### H. **Testing**
    - **Unit Testing**:
      - Testing components, services, and directives using Jasmine and Karma.
    - **E2E Testing**:
@@ -251,7 +251,7 @@ Let me know if you'd like examples or guidance on any specific concept!
 
 ---
 
-#### 9. **HTTP and API Integration**
+#### I. **HTTP and API Integration**
    - Using `HttpClient` to make API calls.
    - Interceptors for modifying requests and responses.
    - Handling authentication tokens (e.g., JWT) in headers.
@@ -259,14 +259,14 @@ Let me know if you'd like examples or guidance on any specific concept!
 
 ---
 
-#### 10. **Theming and Styling**
+#### J. **Theming and Styling**
    - **CSS Frameworks**: Integrating Bootstrap, Material Design, or Tailwind CSS.
    - Angular Material for pre-built UI components.
    - Component-specific styles with ViewEncapsulation.
 
 ---
 
-#### 11. **Build and Deployment**
+#### K. **Build and Deployment**
    - Setting up production builds with Angular CLI.
    - Using Angular Universal for SSR.
    - Optimization with:
@@ -276,7 +276,7 @@ Let me know if you'd like examples or guidance on any specific concept!
 
 ---
 
-#### 12. **Advanced Topics**
+#### L. **Advanced Topics**
    - **Custom Elements (Web Components)**: Building reusable components with Angular Elements.
    - **Multi-language Support**: Using Angular i18n for internationalization.
    - **Progressive Web Apps (PWAs)**: Adding offline capabilities with Angular Service Worker.
