@@ -3,6 +3,11 @@ Here’s a detailed explanation of **Angular Core Concepts** along with **line-b
 ---
 
 ## **1. Components**
+- **What are Components?**
+  Components are the building blocks of an Angular app. Each component controls a part of the UI and is made up of:
+  - **HTML template**: Defines the UI structure.
+  - **TypeScript class**: Handles logic and data.
+  - **CSS styles**: Defines the appearance.
 ### **Code**:
 ```typescript
 import { Component } from '@angular/core'; // 1️⃣ Import the Component decorator
@@ -28,6 +33,8 @@ export class AppComponent { // 5️⃣ The main class containing logic for the c
 ---
 
 ## **2. Services**
+- **What are Services?**
+  Services are used to share data and logic between components. They handle business logic, such as fetching data from an API.
 ### **Code**:
 ```typescript
 import { Injectable } from '@angular/core'; // 1️⃣ Import Injectable decorator
@@ -68,6 +75,11 @@ export class AppComponent {
 ---
 
 ## **3. Directives**
+- **What are Directives?**
+  Directives are used to manipulate the DOM. They come in three types:
+  - **Structural Directives**: Alter the DOM structure (e.g., `*ngIf`, `*ngFor`).
+  - **Attribute Directives**: Change the appearance or behavior of an element (e.g., `[style.color]`).
+  - **Custom Directives**: Create your own reusable DOM behavior.
 ### **Code**:
 ```html
 <!-- Structural Directive -->
@@ -84,7 +96,9 @@ export class AppComponent {
 ---
 
 ## **4. Pipes**
-### **Code**:
+- **What are Pipes?**
+  Pipes are used to transform data in templates. Angular provides built-in pipes like `uppercase`, `date`, and `currency`. You can also create custom pipes.
+  ### **Code**:
 ```html
 <p>{{ 'hello world' | uppercase }}</p> <!-- 1️⃣ Converts to uppercase -->
 <p>{{ today | date:'shortDate' }}</p> <!-- 2️⃣ Formats a date -->
@@ -97,6 +111,12 @@ export class AppComponent {
 ---
 
 ## **5. Data Binding & Event Handling**
+- **What is Data Binding?**
+  Data binding allows communication between the component and its template.
+
+  - **One-way Binding**: Data flows from the component to the template.
+  - **Two-way Binding**: Data flows in both directions (template ↔ component).
+
 ### **Code**:
 ```html
 <h1>{{ title }}</h1> <!-- 1️⃣ Display the title -->
@@ -125,6 +145,8 @@ sayHello() { // 6️⃣ Method to handle the click event
 ---
 
 ## **6. HTTP Module**
+- **What is the HTTP Module?**
+  The `HttpClient` module is used to interact with APIs to fetch/send data.
 ### **Code**:
 ```typescript
 import { HttpClient } from '@angular/common/http'; // 1️⃣ Import HttpClient
@@ -145,7 +167,12 @@ ngOnInit() { // 2️⃣ Lifecycle hook
 ---
 
 ## **7. Forms Module**
-### **Code**:
+- **What is the Forms Module?**
+  Used to create and validate forms in Angular.
+
+  - **Template-Driven Forms**: Use HTML templates for form logic.
+  - **Reactive Forms**: Use TypeScript for form logic.
+  - ### **Code**:
 ```html
 <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)"> <!-- 1️⃣ Template-driven form -->
   <input name="username" ngModel required /> <!-- 2️⃣ Bind input to the form -->
@@ -161,7 +188,9 @@ ngOnInit() { // 2️⃣ Lifecycle hook
 ---
 
 ## **8. Routing**
-### **Code**:
+- **What is Routing?**
+  Angular's routing system lets you create a single-page application (SPA) by navigating between different views without refreshing the page.
+  ### **Code**:
 ```typescript
 const routes: Routes = [ // 1️⃣ Define routes
   { path: '', component: HomeComponent }, // 2️⃣ Route for HomeComponent
@@ -177,7 +206,9 @@ const routes: Routes = [ // 1️⃣ Define routes
 ---
 
 ## **9. Animations**
-### **Code**:
+- **What are Animations?**
+  Angular provides a powerful animation system based on the `@angular/animations` package.
+  ### **Code**:
 ```typescript
 animations: [ // 1️⃣ Define animations
   trigger('fade', [ // 2️⃣ Trigger name
@@ -197,7 +228,9 @@ animations: [ // 1️⃣ Define animations
 ---
 
 ## **10. Testing**
-### **Code**:
+- **What is Testing?**
+  Angular provides tools for unit testing (`Karma`, `Jasmine`) and end-to-end testing (`Protractor`, `Cypress`).
+  ### **Code**:
 ```typescript
 it('should create the app', () => { // 1️⃣ Test description
   const app = new AppComponent(); // 2️⃣ Create the component
