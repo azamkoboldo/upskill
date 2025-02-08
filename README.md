@@ -10,7 +10,7 @@ Given your strong background in **Python, Java, Spring Boot microservices, Kafka
      - Deploying models into production using tools like **Flask**, **FastAPI**, or **Spring Boot** (your Java expertise will help here)
      - **Cloud platforms**: AWS, Azure, or Google Cloud for ML pipelines
 
-### 2. **Data Engineer (Big Data Focus)**
+### 2. **Data Engineer (Big Data Focus)**------> - Good  to have Skill
    - **Why it’s suitable**: Your experience with Kafka, MQ, and SQL makes you a strong candidate for a Data Engineering role. This career path involves building the infrastructure for data generation, collection, and storage, which is critical in any AI/ML project.
    - **Key Skills to Learn**:
      - Big Data technologies: **Hadoop**, **Spark**, **Flink**
@@ -27,7 +27,7 @@ Given your strong background in **Python, Java, Spring Boot microservices, Kafka
      - Integration of AI models with enterprise applications (using microservices and APIs)
      - Working with AI/ML cloud services (AWS SageMaker, Azure ML, Google AI)
 
-### 4. **Data Scientist**
+### 4. **Data Scientist** ------> - Good  to have Skill
    - **Why it’s suitable**: While Data Scientist roles are more focused on statistical analysis and model building, your Python expertise gives you an edge in working with data science libraries like **NumPy**, **Pandas**, and **Matplotlib**. To stand out from junior professionals, focus on deepening your knowledge in algorithms and statistical methods.
    - **Key Skills to Learn**:
      - Advanced statistics and probability
