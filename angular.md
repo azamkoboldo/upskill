@@ -1,4 +1,4 @@
-### **Angular 16+ Overview** Youtube https://www.youtube.com/watch?v=oUmVFHlwZsI
+### **Angular 16+ Overview** Youtube https://www.youtube.com/watch?v=oUmVFHlwZsI https://www.youtube.com/watch?v=VhYWnIMV4jQ
 Angular is a **TypeScript-based front-end web application framework** maintained by Google. It is a complete rewrite of AngularJS, designed for building dynamic, scalable, and maintainable single-page applications (SPAs). Angular 16+ introduces several new features and performance optimizations that make it easier for developers to build fast and modular applications.
 
 #### **Key Features of Angular 16+**
