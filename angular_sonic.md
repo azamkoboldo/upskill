@@ -114,7 +114,7 @@ Modify `app.component.html` to display the fetched JSON data:
     {{ post.body }}
   </li>
 </ul>
---------------------------------------------
+
 
 ### **Creating DTO and DTO Services in Angular 16+**  
 
@@ -297,3 +297,240 @@ Now, open `http://localhost:4200/` in the browser, and you will see the fetched 
 ✅ Display the JSON data in the component's template using `*ngFor`.  
 
 🚀 **This is the recommended approach for making API calls in Angular 16+!**
+
+
+
+### **📌 Creating Columns and Column Services in Angular 16+**
+Columns are typically used in Angular applications when dealing with **tables, dynamic grid layouts, or structured data**. Column services help manage the configuration of these columns dynamically. In **Angular 16+,** we can structure this using DTOs, services, and factory patterns for flexibility.
+
+---
+
+## **🚀 Step 1: Create a Column DTO**
+A **Column DTO** defines the structure of a table column, including its name, key, and display properties.
+
+🔹 **Create `column.dto.ts`**  
+```typescript
+export interface ColumnDTO {
+  key: string;        // Column field key (e.g., 'id', 'name', 'email')
+  title: string;      // Display title (e.g., 'User ID', 'Full Name')
+  sortable?: boolean; // Whether the column is sortable
+  filterable?: boolean; // Whether the column is filterable
+  width?: string;     // Optional width (e.g., '150px', 'auto')
+}
+```
+
+✅ **Why use an interface?**  
+- It provides a **flexible structure** for columns.  
+- The UI can be customized dynamically based on user needs.
+
+---
+
+## **🚀 Step 2: Create a Column Service**
+The **Column Service** provides a list of predefined columns and can be extended dynamically.
+
+🔹 **Create `column.service.ts`**  
+```typescript
+import { Injectable } from '@angular/core';
+import { ColumnDTO } from '../dtos/column.dto';
+
+@Injectable({
+  providedIn: 'root' // Available application-wide
+})
+export class ColumnService {
+  // Define default columns for a User Table
+  getUserColumns(): ColumnDTO[] {
+    return [
+      { key: 'id', title: 'User ID', sortable: true, filterable: false, width: '100px' },
+      { key: 'name', title: 'Full Name', sortable: true, filterable: true, width: '200px' },
+      { key: 'email', title: 'Email Address', sortable: false, filterable: true, width: '250px' }
+    ];
+  }
+
+  // Define columns for a Product Table
+  getProductColumns(): ColumnDTO[] {
+    return [
+      { key: 'id', title: 'Product ID', sortable: true, filterable: false },
+      { key: 'name', title: 'Product Name', sortable: true, filterable: true },
+      { key: 'price', title: 'Price', sortable: true, filterable: false }
+    ];
+  }
+}
+```
+
+✅ **Why use a service for columns?**  
+- Centralized **column definitions** to avoid hardcoding in components.  
+- **Dynamic column selection** based on different entity types.  
+- Reduces **repetition** in multiple components.
+
+---
+
+## **🚀 Step 3: Use Column Service in a Component**
+The **component** will fetch the columns and display them dynamically in a table.
+
+🔹 **Create `table.component.ts`**
+```typescript
+import { Component, OnInit, Input } from '@angular/core';
+import { ColumnService } from '../services/column.service';
+import { ColumnDTO } from '../dtos/column.dto';
+
+@Component({
+  selector: 'app-table',
+  templateUrl: './table.component.html'
+})
+export class TableComponent implements OnInit {
+  @Input() data: any[] = []; // Data for the table
+  columns: ColumnDTO[] = [];
+
+  constructor(private columnService: ColumnService) {}
+
+  ngOnInit() {
+    // Example: Load User Table Columns
+    this.columns = this.columnService.getUserColumns();
+  }
+}
+```
+
+🔹 **Modify `table.component.html`**
+```html
+<table border="1">
+  <thead>
+    <tr>
+      <th *ngFor="let column of columns">{{ column.title }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of data">
+      <td *ngFor="let column of columns">{{ row[column.key] }}</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+✅ **Dynamic Table Rendering**  
+- `*ngFor="let column of columns"` → Iterates over column definitions dynamically.  
+- `*ngFor="let row of data"` → Iterates over rows from the input data.  
+- `{{ row[column.key] }}` → Dynamically fetches cell values.  
+
+---
+
+## **🚀 Step 4: Column Service Factory (Dynamic Column Retrieval)**
+We can use a **Column Service Factory** to dynamically return the correct service.
+
+🔹 **Create `column-service-factory.ts`**
+```typescript
+import { Injectable } from '@angular/core';
+import { ColumnService } from './column.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ColumnServiceFactory {
+  constructor(private columnService: ColumnService) {}
+
+  getColumns(type: string) {
+    switch (type) {
+      case 'user':
+        return this.columnService.getUserColumns();
+      case 'product':
+        return this.columnService.getProductColumns();
+      default:
+        return [];
+    }
+  }
+}
+```
+
+🔹 **Use Factory in a Component**
+```typescript
+import { Component, OnInit, Input } from '@angular/core';
+import { ColumnServiceFactory } from '../services/column-service-factory';
+import { ColumnDTO } from '../dtos/column.dto';
+
+@Component({
+  selector: 'app-dynamic-table',
+  templateUrl: './dynamic-table.component.html'
+})
+export class DynamicTableComponent implements OnInit {
+  @Input() type: string = 'user';
+  @Input() data: any[] = [];
+
+  columns: ColumnDTO[] = [];
+
+  constructor(private columnFactory: ColumnServiceFactory) {}
+
+  ngOnInit() {
+    this.columns = this.columnFactory.getColumns(this.type);
+  }
+}
+```
+
+🔹 **Modify `dynamic-table.component.html`**
+```html
+<h3>Dynamic Table: {{ type | titlecase }}</h3>
+<table border="1">
+  <thead>
+    <tr>
+      <th *ngFor="let column of columns">{{ column.title }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of data">
+      <td *ngFor="let column of columns">{{ row[column.key] }}</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+✅ **Why use a Factory Pattern?**  
+- Supports **different column sets** dynamically.  
+- Can **extend** for new entities like `order`, `employee`, etc.  
+- Keeps the **component code clean** by centralizing column logic.
+
+---
+
+## **🚀 Step 5: Example Usage in Parent Component**
+🔹 **Modify `app.component.ts`**
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent {
+  userData = [
+    { id: 1, name: 'Alice', email: 'alice@example.com' },
+    { id: 2, name: 'Bob', email: 'bob@example.com' }
+  ];
+
+  productData = [
+    { id: 101, name: 'Laptop', price: 1200 },
+    { id: 102, name: 'Phone', price: 800 }
+  ];
+}
+```
+
+🔹 **Modify `app.component.html`**
+```html
+<h2>User Table</h2>
+<app-dynamic-table [type]="'user'" [data]="userData"></app-dynamic-table>
+
+<h2>Product Table</h2>
+<app-dynamic-table [type]="'product'" [data]="productData"></app-dynamic-table>
+```
+
+✅ **Results:**  
+- The **User Table** will load user columns and data.  
+- The **Product Table** will load product columns and data dynamically.
+
+---
+
+## **🔥 Summary**
+1️⃣ **Define a DTO (`column.dto.ts`)** to structure column data.  
+2️⃣ **Create `column.service.ts`** to manage predefined column sets.  
+3️⃣ **Build `table.component.ts`** to display a dynamic table.  
+4️⃣ **Implement `column-service-factory.ts`** to provide columns dynamically.  
+5️⃣ **Use `DynamicTableComponent`** in `app.component.ts` to render tables.
+
+🚀 **Now, your Angular 16+ app dynamically loads columns and tables using DTOs, services, and a factory pattern!** 🎯
+
