@@ -533,4 +533,192 @@ export class AppComponent {
 5️⃣ **Use `DynamicTableComponent`** in `app.component.ts` to render tables.
 
 🚀 **Now, your Angular 16+ app dynamically loads columns and tables using DTOs, services, and a factory pattern!** 🎯
+## **🚀 Creating ViewModel and ViewModel Services in Angular 16+**  
 
+### **🔹 What is a ViewModel?**
+A **ViewModel** is an intermediate layer between the data model (DTO) and the UI.  
+- It **transforms raw data** into a format suitable for display in the UI.  
+- It helps in **separating concerns** between business logic and UI logic.  
+- It provides **computed properties** derived from the DTO.
+
+---
+
+## **📌 Step 1: Create a ViewModel (User Example)**
+A **ViewModel** is similar to a DTO but may include computed fields or formatted values.
+
+🔹 **Create `user.viewmodel.ts`**  
+```typescript
+export interface UserViewModel {
+  id: number;
+  fullName: string;
+  email: string;
+  status: string; // "Active" or "Inactive" based on boolean field
+}
+```
+
+---
+
+## **📌 Step 2: Create a DTO (User Data Transfer Object)**
+DTO represents raw data received from an API.
+
+🔹 **Create `user.dto.ts`**  
+```typescript
+export interface UserDTO {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  isActive: boolean;
+}
+```
+
+---
+
+## **📌 Step 3: Create a ViewModel Service**
+The **ViewModel Service** transforms `UserDTO` into `UserViewModel`.
+
+🔹 **Create `user-viewmodel.service.ts`**
+```typescript
+import { Injectable } from '@angular/core';
+import { UserDTO } from '../dtos/user.dto';
+import { UserViewModel } from '../viewmodels/user.viewmodel';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserViewModelService {
+  
+  // Convert a single UserDTO to UserViewModel
+  toViewModel(user: UserDTO): UserViewModel {
+    return {
+      id: user.id,
+      fullName: `${user.firstName} ${user.lastName}`,
+      email: user.email,
+      status: user.isActive ? 'Active' : 'Inactive'
+    };
+  }
+
+  // Convert an array of UserDTOs to UserViewModels
+  toViewModelList(users: UserDTO[]): UserViewModel[] {
+    return users.map(user => this.toViewModel(user));
+  }
+}
+```
+
+✅ **Why use a ViewModel Service?**  
+- Centralizes **data transformation logic**.  
+- Helps in **formatting** complex data before rendering in the UI.  
+- Improves **code maintainability** by keeping UI logic separate from the API layer.  
+
+---
+
+## **📌 Step 4: Use the ViewModel in a Component**
+Now, we use the **UserViewModelService** in a component to transform and display data.
+
+🔹 **Create `user-list.component.ts`**
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { UserViewModelService } from '../services/user-viewmodel.service';
+import { UserViewModel } from '../viewmodels/user.viewmodel';
+
+@Component({
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html'
+})
+export class UserListComponent implements OnInit {
+  users: UserViewModel[] = [];
+
+  constructor(private userViewModelService: UserViewModelService) {}
+
+  ngOnInit() {
+    // Simulated API Response (Raw DTO Data)
+    const apiUsers = [
+      { id: 1, firstName: 'John', lastName: 'Doe', email: 'john@example.com', isActive: true },
+      { id: 2, firstName: 'Jane', lastName: 'Smith', email: 'jane@example.com', isActive: false }
+    ];
+
+    // Convert DTOs to ViewModels before displaying in UI
+    this.users = this.userViewModelService.toViewModelList(apiUsers);
+  }
+}
+```
+
+---
+
+## **📌 Step 5: Display the ViewModel in HTML**
+🔹 **Modify `user-list.component.html`**
+```html
+<h2>User List</h2>
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.fullName }}</td>
+      <td>{{ user.email }}</td>
+      <td [ngClass]="{'active': user.status === 'Active', 'inactive': user.status === 'Inactive'}">
+        {{ user.status }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+```
+
+🔹 **Add Styling in `styles.css`**
+```css
+.active {
+  color: green;
+  font-weight: bold;
+}
+
+.inactive {
+  color: red;
+  font-weight: bold;
+}
+```
+
+✅ **Now, the UI displays:**
+| ID | Full Name  | Email             | Status  |
+|----|-----------|-------------------|---------|
+| 1  | John Doe  | john@example.com  | **Active** |
+| 2  | Jane Smith| jane@example.com  | **Inactive** |
+
+---
+
+## **📌 Step 6: Convert ViewModel Back to DTO (For Saving)**
+If we need to send the **ViewModel data** back to an API, we must **convert it back to a DTO**.
+
+🔹 **Modify `user-viewmodel.service.ts`**
+```typescript
+// Convert UserViewModel back to UserDTO (for API requests)
+toDTO(user: UserViewModel): UserDTO {
+  const nameParts = user.fullName.split(' '); // Split full name
+  return {
+    id: user.id,
+    firstName: nameParts[0],
+    lastName: nameParts.length > 1 ? nameParts[1] : '',
+    email: user.email,
+    isActive: user.status === 'Active'
+  };
+}
+```
+
+---
+
+## **🔥 Summary**
+✅ **What we did?**
+1️⃣ **Created a DTO (`user.dto.ts`)** for raw API data.  
+2️⃣ **Created a ViewModel (`user.viewmodel.ts`)** for UI transformation.  
+3️⃣ **Built a ViewModel Service (`user-viewmodel.service.ts`)** for data conversion.  
+4️⃣ **Used ViewModel Service in `user-list.component.ts`** to load and display data.  
+5️⃣ **Displayed transformed data dynamically in `user-list.component.html`.**  
+6️⃣ **Converted ViewModel back to DTO when saving data to the backend.**  
+
+🚀 **This approach improves maintainability and separates data logic from UI logic.** 🎯
