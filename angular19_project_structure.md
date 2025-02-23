@@ -64,7 +64,7 @@ my-angular-project/
 #### **3. Configuration Files**
 - **`.editorconfig`**: Code style settings.
 - **`.gitignore`**: Specifies files to ignore in Git.
-- **`angular.json`**: Angular CLI configuration for my project, this file also has configuration from where we have to start index.html file( single page application index.html, main.ts ... etc). 
+- **`angular.json`**: Angular CLI configuration for my project, this file also has configuration from where we have to start index.html file( single page application index.html--> main.ts --> app moduule --> app.config.ts(app.routes.ts)... etc). 
 - **`karma.conf.js`**: Configuration for Karma test runner.
 - **`package.json`**: It contains entires of packages, along with their version which we use in our project, Defines dependencies, scripts, and metadata  " this is importanat file of the project, with running `npm install -g @angular/cli` it creates node_modules directory with packages (it install packages along with dependent package of each package eg: @angular/animlation along with its dependencies, it install packages from  https://www.npmjs.com. 
 - **`tsconfig.json`**: TypeScript configuration.
