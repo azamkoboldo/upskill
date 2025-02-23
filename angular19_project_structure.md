@@ -1,4 +1,4 @@
-An Angular project follows a structured directory layout, ensuring maintainability and scalability. Below is the typical Angular project structure along with a description of each file and directory:
+An Angular project follows a structured directory layout, ensuring maintainability and scalability. Below is the typical Angular project structure along with a description of each file and directory: https://www.youtube.com/watch?v=ksablkcwKB0&list=PL7JmcZV0UQtVNlr8JrjNWzLPtVMjGH_Z2
 
 ```
 my-angular-project/
